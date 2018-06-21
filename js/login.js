@@ -17,5 +17,5 @@ function loginUser(e) {
     	body: JSON.stringify({username:username, password:password})
     })
     .then((res) => res.json())
-    .then((data) => console.log(data))    
+    .then((data) => localStorage.setItem('token', data.token))    
 }
