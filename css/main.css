@@ -157,7 +157,7 @@ body{
     resize: vertical;
 }
 
-.form-container #approve, .form-container input[type=submit]  {
+.form-container #approve, .form-container input[type=submit], .form-container input[type=button]  {
     background-color: #4CAF50;
     color: white;
     padding: 15px 30px;
@@ -177,7 +177,7 @@ body{
     cursor: pointer;
 }
 
-.form-container #approve:hover, .form-container input[type=submit]:hover {
+.form-container #approve:hover, .form-container input[type=submit]:hover, .form-container input[type=button]:hover {
     background-color: rgb(111, 214, 114);
 }
 

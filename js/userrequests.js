@@ -15,16 +15,19 @@ window.onload = function userRequests() {
 			let table = document.getElementById('requests');
 			
 			i = 1
-			
+
+			// Create row for each request
 			let row = table.insertRow(i);
 
+			// Create cell for each entry
 			let id = row.insertCell(0);
 			let date = row.insertCell(1);
 			let title = row.insertCell(2);
 			let location = row.insertCell(3);
 			let priority = row.insertCell(4);
 			let status = row.insertCell(5);
-
+			
+			// Add data into cells
 			id.innerHTML = "<a href='#'>"+request.request_id+"</a>";
 			date.innerHTML = request.request_date;
 			title.innerHTML = request.request_title;
@@ -35,16 +38,5 @@ window.onload = function userRequests() {
 			i++;
 			
 		});
-			
-			/*usertable += `				
-				<td>${request.request_id}</td>
-				<td>${request.request_date}</td>
-				<td>${request.request_title}</td>
-				<td>${request.request_location}</td>
-				<td>${request.request_priority}</td>
-				<td>${request.request_status}</td>				
-			`;
-		});
-		document.getElementById('usertable').innerHTML = usertable;*/
 	})
 }
