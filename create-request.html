@@ -29,8 +29,6 @@
         <h1><u>Create Request</u></h1>
         <br>
     <form action="">
-        <label for="requestdate">Request Date:</label>
-        <input type="text" id="requestdate" name="requestdate" placeholder="Todays date..">
 
         <label for="requesttitle">Request Title:</label>
         <input type="text" id="requesttitle" name="requesttitle" placeholder="Title..">
@@ -40,16 +38,16 @@
 
 
         <label for="priority">Priority:</label>
-        <select id="country" name="country">
+        <select id="priority" name="priority">
         <option value="high">High</option>
         <option value="medium">Medium</option>
         <option value="low">Low</option>
         </select>
 
-        <label for="description">Work Description:</label>
+        <label for="description">Request Description:</label>
         <textarea id="description" name="description" placeholder="Describe the work.." style="height:200px"></textarea>
         <div class="clearfix">
-            <input type="submit" value="Submit">
+            <input type="button" value="Submit" id="submitRequest">
         </div>    
     </form>
     </div>
@@ -60,5 +58,6 @@
         <p>Copyright <i class="fa fa-copyright"></i> 2018</p>
     </div> 
         
+    <script src="js/createrequest.js"></script>    
 </body>	
 </html>
