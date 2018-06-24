@@ -17,5 +17,14 @@ function loginUser(e) {
     	body: JSON.stringify({username:username, password:password})
     })
     .then((res) => res.json())
-    .then((data) => localStorage.setItem('token', data.token))    
+    .then((data) => {
+        console.log(data[1].message);
+        if (data[1].message === 'Login successful') {
+            localStorage.setItem('token', data[0].token);
+            location.assign("user-requests.html");  
+        }
+        else {
+            alert("Login Failed.");
+        }    
+    })     
 }
