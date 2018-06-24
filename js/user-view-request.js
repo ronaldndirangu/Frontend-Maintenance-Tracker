@@ -17,4 +17,29 @@ function getRequest() {
 	
 	request_description = localStorage.getItem('request_description')
 	document.getElementById('req-description').innerHTML = '<em><b>Description: </b>'+request_description+'</em>';
+
+	document.getElementById('delete').addEventListener('click', deleteRequest);
+}
+
+function deleteRequest() {
+	req_id = localStorage.getItem('request_id')
+	if (confirm("Are you sure you want to delete this request?")) {
+		fetch ('http://127.0.0.1:5000/api/v2/users/requests/'+req_id, {
+			method: 'DELETE',
+			headers: {
+				"Accept":"application/json",
+				"Content-type":"application/json",
+				"token":localStorage.getItem('token')
+			}
+		})
+		.then((res) => res.json())
+		.then((data) => {
+			console.log(data)
+			window.location.assign('user-requests.html');
+		})
+	}	
+}
+
+function editRequest() {
+	window.location.assign('update-request.html');
 }
