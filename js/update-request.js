@@ -9,7 +9,9 @@ function getRequest() {
 	document.getElementById('req-description').innerHTML= request_description;
 }
 
-function updateRequest() {
+function updateRequest(e) {
+	e.preventDefault();
+	
 	let title = document.getElementById('req-title').value;
 	let location = document.getElementById('req-location').value;
 	let description = document.getElementById('req-description').value;
