@@ -21,7 +21,9 @@ function getRequest() {
 	document.getElementById('delete').addEventListener('click', deleteRequest);
 }
 
-function deleteRequest() {
+function deleteRequest(e) {
+	e.preventDefault();
+	
 	req_id = localStorage.getItem('request_id')
 	if (confirm("Are you sure you want to delete this request?")) {
 		fetch ('http://127.0.0.1:5000/api/v2/users/requests/'+req_id, {
