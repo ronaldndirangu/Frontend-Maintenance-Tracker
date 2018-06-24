@@ -52,6 +52,7 @@ function userRequests() {
 				})
 				.then((res) => res.json())
 				.then((data) => {
+					localStorage.setItem('request_id', data[0].request_id);
 					localStorage.setItem('request_title', data[0].request_title);
 					localStorage.setItem('request_date', data[0].request_date);
 					localStorage.setItem('request_location', data[0].request_location);
