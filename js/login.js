@@ -18,10 +18,15 @@ function loginUser(e) {
     })
     .then((res) => res.json())
     .then((data) => {
-        console.log(data[1].message);
+        console.log(data);
         if (data[1].message === 'Login successful') {
             localStorage.setItem('token', data[0].token);
-            location.assign("user-requests.html");  
+            if (data[2].role) {
+                location.assign("admin-all-requests.html"); 
+            }
+            else {
+                location.assign("user-requests.html"); 
+            }             
         }
         else {
             alert("Login Failed.");
