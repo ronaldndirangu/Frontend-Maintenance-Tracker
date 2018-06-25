@@ -8,26 +8,32 @@
 	<title>Maintenance Tracker</title>
 </head>
 
-<body onload="userRequests()">
+<body onload="adminRequests()">
 	<div class="navbar">
-  		<a href="user-requests.html" id="navbrand">Maintenance Tracker</a>
+  		<a href="admin-all-requests.html" id="navbrand">Maintenance Tracker</a>
   		
   		<div class="dropdown" id="navright">
     		<button class="dropbtn">My Account
     			<i class="fa fa-caret-down"></i>
     		</button>
 	    	<div class="dropdown-content">
-	      		<a href="user-requests.html">Home</a>
+	      		<a href="admin-all-requests.html">Home</a>
 	      		<a href="#">Logout</a>
     		</div>
  		</div>
- 		<a href="create-request.html" id="navright">Create Request</a>
+ 		<a href="users.html" id="navright">View users</a>
 	</div>
 	<div class="container">
 
 		<form action="" class="form-container-line">
 			<label for="requestdate">Request Date:</label>
 			<input type="text" id="filterbydate" name="filterbydate" placeholder="DD/MM/YYYY">
+
+			<label for="firstname">First Name:</label>
+			<input type="text" id="firstname" name="firstname" placeholder="First Name">
+
+			<label for="lastname">Last Name:</label>
+			<input type="text" id="lastname" name="lastname" placeholder="Last Name">
 			
 			<label for="requestdate">Location:</label>
 			<input type="text" id="filterbylocation" name="filterbylocation" placeholder="Location"> 
@@ -58,8 +64,7 @@
 				<th>Priority</th>
 				<th>Status</th>
 			</tr>
-			<!-- Insert user requests -->
-			<div id="usertable"></div>	
+			<!-- Insert user requests -->	
 		</table>
 		<form action="" class="tbcontrols">
 			<input id="previous" type="submit" value="Previous">
@@ -71,6 +76,7 @@
 		<p>Copyright <i class="fa fa-copyright"></i> 2018</p>
 	</div> 
 
-	<script src="js/userrequests.js"></script>
+	<script src="js/admin-requests.js"></script>
+
 </body>	
 </html>

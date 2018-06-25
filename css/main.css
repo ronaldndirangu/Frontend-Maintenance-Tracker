@@ -90,7 +90,7 @@ body{
     clear: both;
 }
 
-#requests{
+#requests, #users{
     position: absolute;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -99,26 +99,26 @@ body{
     overflow: hidden;
 }
 
-#requests td, #requests th{
+#requests td, #users td, #requests th, #users th{
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-#requests tr:nth-child(even){
+#requests tr:nth-child(even), #users tr:nth-child(even){
     background-color: #f2f2f2;
 }
 
-#requests tr:hover{
+#requests tr:hover, #users tr:hover{
     background-color: #ddd;
     cursor: pointer;
 }
 
-#requests tr td a{
+#requests tr td a, #users tr td a{
     text-decoration: none;
     color:  #4CAF50;
 }
 
-#requests th{
+#requests th, #users th{
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
@@ -276,4 +276,13 @@ body{
     background-color: rgb(0, 77, 77);
     color: white;
     text-align: center;
+}
+
+@media screen and (max-width: 600px){
+  body{
+    width: 100%;
+  }
+  .container {
+    width: 80%;
+  }
 }
