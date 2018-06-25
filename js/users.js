@@ -38,11 +38,27 @@ function getUsers() {
 					i++;
 
 					id.addEventListener('click', getUser);	
+			}
+
+			function getUser() {
+				fetch('http://127.0.0.1:5000/api/v2/users/'+user.user_id, {
+					method: 'GET',
+					headers:{
+						"Accept":"application/json",
+						"Content-type":"application/json",
+						"token":localStorage.getItem('token')
+					}
+				})
+				.then((res) => res.json())
+				.then((data) => {
+					localStorage.setItem('user_id', data[0].user_id);
+					localStorage.setItem('username', data[0].username);
+					localStorage.setItem('email', data[0].email);
+					localStorage.setItem('role', data[0].role);
+					location.assign('user-details.html')
+				})
 			} 
+
 		});
 	})
-}
-
-function getUser() {
-
 }

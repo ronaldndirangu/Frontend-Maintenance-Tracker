@@ -21,5 +21,8 @@ function createRequest(e) {
 							 request_priority:priority, request_description:description})
 	})
 	.then ((res) => res.json())
-	.then ((data) => console.log(data))
+	.then ((data) => {
+		console.log(data);
+		window.location.assign('user-requests.html');
+	})
 }
