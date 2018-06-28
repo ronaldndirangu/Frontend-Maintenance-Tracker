@@ -38,6 +38,7 @@ function adminRequests() {
 					
 					i++;	
 					id.addEventListener('click', viewRequest);
+					title.className = 'title';
 			} 
 			
 
@@ -67,3 +68,21 @@ function adminRequests() {
 	})
 }
 
+// Implement search on user request page
+searchTitle = document.getElementById('filterbytitle');
+searchTitle.addEventListener('keyup', filterTitle);
+
+function filterTitle() {
+	let filterTitleValue = document.getElementById('filterbytitle').value.toUpperCase();
+
+	// Get table rows
+	let tr = document.getElementsByClassName('title');
+	// Get entries
+	for (let i=0; i<tr.length; i++) {
+		if (tr[i].innerHTML.toUpperCase().indexOf(filterTitleValue) > -1 ) {
+            tr[i].parentNode.style.display = '';
+        } else {
+            tr[i].parentNode.style.display = 'none';
+        }
+	}	
+}
