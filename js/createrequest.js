@@ -23,6 +23,8 @@ function createRequest(e) {
 	.then ((res) => res.json())
 	.then ((data) => {
 		console.log(data);
-		window.location.assign('user-requests.html');
+		if (data.message != 'Please fill all fields') {
+			window.location.assign('user-requests.html');
+		}		
 	})
 }

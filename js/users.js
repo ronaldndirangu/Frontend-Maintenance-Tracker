@@ -37,7 +37,8 @@ function getUsers() {
 					}					
 					i++;
 
-					id.addEventListener('click', getUser);	
+					id.addEventListener('click', getUser);
+					username.className = "username"	
 			}
 
 			function getUser() {
@@ -61,4 +62,22 @@ function getUsers() {
 
 		});
 	})
+}
+
+searchUser = document.getElementById('username');
+searchUser.addEventListener('keyup', filterUser);
+
+function filterUser() {
+	let filterValue = document.getElementById('username').value.toUpperCase();
+
+	// Get table rows
+	let tr = document.getElementsByClassName('username');
+	// Get entries
+	for (let i=0; i<tr.length; i++) {
+		if (tr[i].innerHTML.toUpperCase().indexOf(filterValue) > -1 ) {
+            tr[i].parentNode.style.display = '';
+        } else {
+            tr[i].parentNode.style.display = 'none';
+        }
+	}	
 }

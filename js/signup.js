@@ -1,5 +1,6 @@
 // Add event listener
 document.getElementById('signup').addEventListener('click', signupUser);
+document.getElementById('cancel').addEventListener('click', cancelSignup)
 
 // Signup a user
 function signupUser(e) {
@@ -18,5 +19,14 @@ function signupUser(e) {
 		body: JSON.stringify({username:username, email:email, password:password})
 	})	
 	.then((res) => res.json())
-	.then((data) => console.log(data))
+	.then((data) => {
+		console.log(data)
+		if (data.message === "User created successfully") {
+			window.location.assign('index.html');
+		}
+	})
+}
+
+function cancelSignup() {
+	window.location.assign('index.html');
 }
