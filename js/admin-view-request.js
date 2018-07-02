@@ -1,3 +1,5 @@
+API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
+
 // Get request details
 function getRequest() {	
 	request_id = localStorage.getItem('request_id')
@@ -29,7 +31,7 @@ function getRequest() {
 function approveRequest(e) {
 	e.preventDefault();
 
-	fetch('http://127.0.0.1:5000/api/v2/requests/'+request_id+'/approve', {
+	fetch(API_PREFIX+'/api/v2/requests/'+request_id+'/approve', {
 		method: "PUT",
 		headers: {
 			"Accept":"application/json",
@@ -38,14 +40,20 @@ function approveRequest(e) {
 		}
 	})
 	.then((res) => res.json())
-	.then((data) => console.log(data))
+	.then((data) => {
+		console.log(data);
+		alert(data.message);
+		if (data.message==="request approved") {
+			window.location.assign("admin-all-requests.html");
+		}		
+	})
 }
 
 // Reject request
 function rejectRequest(e) {
 	e.preventDefault();
 
-	fetch('http://127.0.0.1:5000/api/v2/requests/'+request_id+'/disapprove', {
+	fetch(API_PREFIX+'/api/v2/requests/'+request_id+'/disapprove', {
 		method: "PUT",
 		headers: {
 			"Accept":"application/json",
@@ -54,14 +62,20 @@ function rejectRequest(e) {
 		}
 	})
 	.then((res) => res.json())
-	.then((data) => console.log(data))
+	.then((data) => {
+		console.log(data);
+		alert(data.message);
+		if (data.message==="request rejected") {
+			window.location.assign("admin-all-requests.html");
+		}
+	})
 }
 
 // Resolve request
 function resolveRequest(e) {
 	e.preventDefault();
 
-	fetch('http://127.0.0.1:5000/api/v2/requests/'+request_id+'/resolve', {
+	fetch(API_PREFIX+'/api/v2/requests/'+request_id+'/resolve', {
 		method: "PUT",
 		headers: {
 			"Accept":"application/json",
@@ -70,5 +84,11 @@ function resolveRequest(e) {
 		}
 	})
 	.then((res) => res.json())
-	.then((data) => console.log(data))
+	.then((data) => {
+		console.log(data);
+		alert(data.message);
+		if (data.message==="request resolved") {
+			window.location.assign("admin-all-requests.html");
+		}
+	})
 }

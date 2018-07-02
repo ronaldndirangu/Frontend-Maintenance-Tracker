@@ -1,3 +1,5 @@
+API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
+
 // Add event listener
 document.getElementById("submitRequest").addEventListener('click', createRequest);
 
@@ -10,7 +12,7 @@ function createRequest(e) {
 	let priority = document.getElementById("priority").value;
 	let description = document.getElementById("description").value;
 
-	fetch ('http://127.0.0.1:5000/api/v2/users/requests', {
+	fetch (API_PREFIX+'/api/v2/users/requests', {
 		method: 'POST',
 		headers: {
 			"Accept":"application/json",
@@ -23,6 +25,7 @@ function createRequest(e) {
 	.then ((res) => res.json())
 	.then ((data) => {
 		console.log(data);
+		alert(data.message);
 		if (data.message != 'Please fill all fields') {
 			window.location.assign('user-requests.html');
 		}		

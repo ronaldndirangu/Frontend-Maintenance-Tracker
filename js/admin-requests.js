@@ -1,6 +1,7 @@
+API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
 
 function adminRequests() {
-	fetch('http://127.0.0.1:5000/api/v2/requests', {
+	fetch(API_PREFIX+'/api/v2/requests', {
 		method: 'GET',
 		headers: {
 			"Accept":"application/json",
@@ -43,7 +44,7 @@ function adminRequests() {
 			
 
 			function viewRequest() {
-				fetch('http://127.0.0.1:5000/api/v2/users/requests/'+(request.request_id), {
+				fetch(API_PREFIX+'/api/v2/users/requests/'+(request.request_id), {
 					method: 'GET',
 					headers:{
 						"Accept":"application/json",

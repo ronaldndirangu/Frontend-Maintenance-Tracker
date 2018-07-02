@@ -1,5 +1,7 @@
+API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
+
 function getUsers() {
-	fetch('http://127.0.0.1:5000/api/v2/users', {
+	fetch(API_PREFIX+'/api/v2/users', {
 		method: 'GET',
 		headers: {
 			"Accept":"application/json",
@@ -42,7 +44,7 @@ function getUsers() {
 			}
 
 			function getUser() {
-				fetch('http://127.0.0.1:5000/api/v2/users/'+user.user_id, {
+				fetch(API_PREFIX+'/api/v2/users/'+user.user_id, {
 					method: 'GET',
 					headers:{
 						"Accept":"application/json",
