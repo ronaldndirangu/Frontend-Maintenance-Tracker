@@ -1,3 +1,5 @@
+API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
+
 function getRequest() {	
 	request_title = localStorage.getItem('request_title')
 	document.getElementById('req-title').value = request_title;
@@ -9,8 +11,7 @@ function getRequest() {
 	document.getElementById('req-description').innerHTML= request_description;
 }
 
-function updateRequest(e) {
-	e.preventDefault();
+function updateRequest() {
 	
 	let title = document.getElementById('req-title').value;
 	let location = document.getElementById('req-location').value;
@@ -22,7 +23,7 @@ function updateRequest(e) {
 		alert('No update to request detected');
 	}
 	else {
-		fetch ('http://127.0.0.1:5000/api/v2/users/requests/'+req_id, {
+		fetch (API_PREFIX+'/api/v2/users/requests/'+req_id, {
 			method: 'PUT',
 			headers: {
 				"Accept":"application/json",
@@ -32,6 +33,10 @@ function updateRequest(e) {
 			body: JSON.stringify({request_title:title, request_location:location, request_description:description})
 		})
 		.then((res) => res.json())
-		.then((data) => console.log(data))
+		.then((data) => {
+			console.log(data)
+			alert(data.message);
+			window.location.assign("user-requests.html")
+		})
 	}
 }

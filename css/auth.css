@@ -42,12 +42,16 @@ body{
 	text-align: center;
 }
 
+.signup-box p{
+	text-align: center;
+}
+
 .login-box p a, .signup-box p a{
 	color: white;
 }
 
 .login-box p a:hover, .signup-box p a:hover{
-	color: #4CAF50;
+	color: red;
 }
 
 .textbox{

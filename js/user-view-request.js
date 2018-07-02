@@ -1,3 +1,4 @@
+API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
 
 function getRequest() {	
 	request_title = localStorage.getItem('request_title')
@@ -26,7 +27,7 @@ function deleteRequest(e) {
 	
 	req_id = localStorage.getItem('request_id')
 	if (confirm("Are you sure you want to delete this request?")) {
-		fetch ('http://127.0.0.1:5000/api/v2/users/requests/'+req_id, {
+		fetch (API_PREFIX+'/api/v2/users/requests/'+req_id, {
 			method: 'DELETE',
 			headers: {
 				"Accept":"application/json",
