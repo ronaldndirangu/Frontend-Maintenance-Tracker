@@ -247,26 +247,9 @@ body{
     margin: 10px 60px;
 }
 
-.tbcontrols{
+#buttons{
     margin-top: 30%;
     margin-left: 50%;    
-}
-
-.tbcontrols #previous{
-    padding: 12px 18px;
-    border: none;
-    border-radius: 5px;
-}
-
-.tbcontrols #next{
-    padding: 12px 27px;
-    border: none;
-    border-radius: 5px;
-}
-
-.tbcontrols #previous:hover, .tbcontrols #next:hover { 
-    background-color:  #4CAF50;
-    color: white;
 }
 
 .footer{
