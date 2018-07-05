@@ -31,3 +31,8 @@ function createRequest(e) {
 		}		
 	})
 }
+
+function logOut() {
+	localStorage.removeItem('token');
+	window.location.assign('index.html');
+}

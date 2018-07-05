@@ -40,3 +40,8 @@ function updateRequest() {
 		})
 	}
 }
+
+function logOut() {
+	localStorage.removeItem('token');
+	window.location.assign('index.html');
+}
