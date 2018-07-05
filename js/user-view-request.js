@@ -46,3 +46,8 @@ function deleteRequest(e) {
 function editRequest() {
 	window.location.assign('update-request.html');
 }
+
+function logOut() {
+	localStorage.removeItem('token');
+	window.location.assign('index.html');
+}

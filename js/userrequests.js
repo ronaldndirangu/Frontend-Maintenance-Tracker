@@ -153,3 +153,8 @@ function paginate(tb) {
 	}
 	return sort;
 }
+
+function logOut() {
+	localStorage.removeItem('token');
+	window.location.assign('index.html');
+}

@@ -83,3 +83,8 @@ function filterUser() {
         }
 	}	
 }
+
+function logOut() {
+	localStorage.removeItem('token');
+	window.location.assign('index.html');
+}
