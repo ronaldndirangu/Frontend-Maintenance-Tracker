@@ -1,4 +1,4 @@
-API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
+API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com';
 
 // Add event listeners
 document.getElementById('login').addEventListener('click', loginUser);
@@ -34,5 +34,5 @@ function loginUser(e) {
         else {
             alert(data.message);
         }    
-    })     
+    });     
 }

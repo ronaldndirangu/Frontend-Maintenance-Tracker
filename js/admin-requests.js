@@ -22,6 +22,7 @@ function adminRequests() {
 			// Create row for each request
 			if (typeof table !== "undefined" && table !== null) {
 					let row = table.insertRow(i);
+					row.setAttribute('onclick', 'viewRequest(this)');
 
 					// Create cell for each entry
 					let id = row.insertCell(0);
@@ -32,7 +33,7 @@ function adminRequests() {
 					let status = row.insertCell(5);
 					
 					// Add data into cells
-					id.innerHTML = "<a>"+request.request_id+"</a>";
+					id.innerHTML = request.request_id;
 					date.innerHTML = request.request_date;
 					title.innerHTML = request.request_title;
 					location.innerHTML = request.request_location;
@@ -40,38 +41,36 @@ function adminRequests() {
 					status.innerHTML = request.request_status;
 					
 					i++;	
-					id.addEventListener('click', viewRequest);
 					title.className = 'title';
 			} 
-			
-
-			function viewRequest() {
-				fetch(API_PREFIX+'/api/v2/users/requests/'+(request.request_id), {
-					method: 'GET',
-					headers:{
-						"Accept":"application/json",
-						"Content-type":"application/json",
-						"token":localStorage.getItem('token')
-					}
-				})
-				.then((res) => res.json())
-				.then((data) => {
-					console.log(data);
-					localStorage.setItem('request_id', data[0].request_id);
-					localStorage.setItem('request_title', data[0].request_title);
-					localStorage.setItem('request_date', data[0].request_date);
-					localStorage.setItem('request_location', data[0].request_location);
-					localStorage.setItem('request_priority', data[0].request_priority);
-					localStorage.setItem('request_status', data[0].request_status);
-					localStorage.setItem('request_description', data[0].request_description);
-					location.assign('admin-request.html');
-				})
-			}
 		});
 		sort = paginate(table);
 	})
 }
 
+function viewRequest(event) {
+
+	fetch(API_PREFIX+'/api/v2/users/requests/'+event.cells[0].innerHTML, {
+		method: 'GET',
+		headers:{
+			"Accept":"application/json",
+			"Content-type":"application/json",
+			"token":localStorage.getItem('token')
+		}
+	})
+	.then((res) => res.json())
+	.then((data) => {
+		console.log(data);
+		localStorage.setItem('request_id', data[0].request_id);
+		localStorage.setItem('request_title', data[0].request_title);
+		localStorage.setItem('request_date', data[0].request_date);
+		localStorage.setItem('request_location', data[0].request_location);
+		localStorage.setItem('request_priority', data[0].request_priority);
+		localStorage.setItem('request_status', data[0].request_status);
+		localStorage.setItem('request_description', data[0].request_description);
+		location.assign('admin-request.html');
+	})
+}
 // Implement search on user request page
 searchTitle = document.getElementById('filterbytitle');
 searchTitle.addEventListener('keyup', filterTitle);
