@@ -36,7 +36,7 @@ function approveRequest(e) {
 		headers: {
 			"Accept":"application/json",
 			"Content-type":"application/json",
-			"token":localStorage.getItem('token')
+			"token":sessionStorage.getItem('token')
 		}
 	})
 	.then((res) => res.json())
@@ -58,7 +58,7 @@ function rejectRequest(e) {
 		headers: {
 			"Accept":"application/json",
 			"Content-type":"application/json",
-			"token":localStorage.getItem('token')
+			"token":sessionStorage.getItem('token')
 		}
 	})
 	.then((res) => res.json())
@@ -80,7 +80,7 @@ function resolveRequest(e) {
 		headers: {
 			"Accept":"application/json",
 			"Content-type":"application/json",
-			"token":localStorage.getItem('token')
+			"token":sessionStorage.getItem('token')
 		}
 	})
 	.then((res) => res.json())
@@ -94,6 +94,6 @@ function resolveRequest(e) {
 }
 
 function logOut() {
-	localStorage.removeItem('token');
+	sessionStorage.removeItem('token');
 	window.location.assign('index.html');
 }

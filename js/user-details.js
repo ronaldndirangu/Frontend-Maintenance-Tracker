@@ -37,7 +37,7 @@ function promoteUser(e) {
 		headers: {
 			"Accept":"application/json",
 			"Content-type":"application/json",
-			"token":localStorage.getItem('token')
+			"token":sessionStorage.getItem('token')
 		}
 	})
 	.then((res) => res.json())
@@ -56,7 +56,7 @@ function deleteUser(e) {
 			headers: {
 				"Accept":"application/json",
 				"Content-type":"application/json",
-				"token":localStorage.getItem('token')
+				"token":sessionStorage.getItem('token')
 			}
 		})
 		.then((res) => res.json())
@@ -65,4 +65,9 @@ function deleteUser(e) {
 			window.location.assign('users.html')
 		})
 	}
+}
+
+function logOut() {
+	sessionStorage.removeItem('token');
+	window.location.assign('index.html');
 }

@@ -17,7 +17,7 @@ function createRequest(e) {
 		headers: {
 			"Accept":"application/json",
 			"Content-type":"application/json",
-			"token":localStorage.getItem('token')
+			"token":sessionStorage.getItem('token')
 		},
 		body: JSON.stringify({request_title:title, request_location:location,
 							 request_priority:priority, request_description:description})
@@ -33,6 +33,6 @@ function createRequest(e) {
 }
 
 function logOut() {
-	localStorage.removeItem('token');
+	sessionStorage.removeItem('token');
 	window.location.assign('index.html');
 }

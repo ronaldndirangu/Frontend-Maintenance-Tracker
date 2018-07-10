@@ -22,7 +22,7 @@ function loginUser(e) {
     .then((data) => {
         if (data.length > 1){
             if (data[1].message === 'Login successful') {
-                localStorage.setItem('token', data[0].token);
+                sessionStorage.setItem('token', data[0].token);
                 if (data[2].role) {
                     location.assign("admin-all-requests.html"); 
                 }

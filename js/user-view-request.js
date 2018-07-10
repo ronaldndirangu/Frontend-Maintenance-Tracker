@@ -32,7 +32,7 @@ function deleteRequest(e) {
 			headers: {
 				"Accept":"application/json",
 				"Content-type":"application/json",
-				"token":localStorage.getItem('token')
+				"token":sessionStorage.getItem('token')
 			}
 		})
 		.then((res) => res.json())
@@ -48,6 +48,6 @@ function editRequest() {
 }
 
 function logOut() {
-	localStorage.removeItem('token');
+	sessionStorage.removeItem('token');
 	window.location.assign('index.html');
 }
