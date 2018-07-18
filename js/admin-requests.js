@@ -1,64 +1,56 @@
-API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
+import endPoint from './fetch';
 
 let sort;
+let searchTitle;
+let token;
+let page_rows;
+let is_header;
 
 if (sessionStorage.getItem('token')) {
-		function adminRequests() {
-	fetch(API_PREFIX+'/api/v2/requests', {
-		method: 'GET',
-		headers: {
-			"Accept":"application/json",
-			"Content-type":"application/json",
-			"token":sessionStorage.getItem('token')
-		}
-	})
-	.then((res) => res.json())
-	.then((data) => {
-		console.log(data);
-		let table = document.getElementById('requests');
-		data.forEach(function(request) {
+	window.onload = function adminRequests() {
+		token = sessionStorage.getItem('token');
+		endPoint.get('/requests', token)
+		.then((res) => res.json())
+		.then((data) => {
+			console.log(data);
+			let table = document.getElementById('requests');
+			data.forEach(function(request) {
 
-			let i = 1
-			console.log(table);
-			// Create row for each request
-			if (typeof table !== "undefined" && table !== null) {
-					let row = table.insertRow(i);
-					row.setAttribute('onclick', 'viewRequest(this)');
+				let i = 1;
+				console.log(table);
+				// Create row for each request
+				if (typeof table !== "undefined" && table !== null) {
+						let row = table.insertRow(i);
+						row.setAttribute('onclick', 'viewRequest(this)');
 
-					// Create cell for each entry
-					let id = row.insertCell(0);
-					let date = row.insertCell(1);
-					let title = row.insertCell(2);
-					let location = row.insertCell(3);
-					let priority = row.insertCell(4);
-					let status = row.insertCell(5);
-					
-					// Add data into cells
-					id.innerHTML = request.request_id;
-					date.innerHTML = request.request_date;
-					title.innerHTML = request.request_title;
-					location.innerHTML = request.request_location;
-					priority.innerHTML = request.request_priority;
-					status.innerHTML = request.request_status;
-					
-					i++;	
-					title.className = 'title';
-			} 
+						// Create cell for each entry
+						let id = row.insertCell(0);
+						let date = row.insertCell(1);
+						let title = row.insertCell(2);
+						let location = row.insertCell(3);
+						let priority = row.insertCell(4);
+						let status = row.insertCell(5);
+						
+						// Add data into cells
+						id.innerHTML = request.request_id;
+						date.innerHTML = request.request_date;
+						title.innerHTML = request.request_title;
+						location.innerHTML = request.request_location;
+						priority.innerHTML = request.request_priority;
+						status.innerHTML = request.request_status;
+						
+						i++;	
+						title.className = 'title';
+				} 
+			});
+			sort = paginate(table);
 		});
-		sort = paginate(table);
-	})
 	}
 
 	function viewRequest(event) {
 
-		fetch(API_PREFIX+'/api/v2/users/requests/'+event.cells[0].innerHTML, {
-			method: 'GET',
-			headers:{
-				"Accept":"application/json",
-				"Content-type":"application/json",
-				"token":sessionStorage.getItem('token')
-			}
-		})
+		token = sessionStorage.getItem('token')
+		endPoint.get('/users/requests/'+event.cells[0].innerHTML, token)
 		.then((res) => res.json())
 		.then((data) => {
 			console.log(data);
@@ -70,7 +62,7 @@ if (sessionStorage.getItem('token')) {
 			localStorage.setItem('request_status', data[0].request_status);
 			localStorage.setItem('request_description', data[0].request_description);
 			location.assign('admin-request.html');
-		})
+		});
 	}
 	// Implement search on user request page
 	searchTitle = document.getElementById('filterbytitle');
@@ -97,7 +89,7 @@ if (sessionStorage.getItem('token')) {
 		console.log(table_rows);
 		let table_header = tb.rows[0].firstElementChild.tagName;
 		// Set rows to be displayed per page
-		page_rows = 2;
+		page_rows = 3;
 		// Check if table has header
 		is_header = (table_header === 'TH');
 		// Array to hold each row
@@ -151,13 +143,15 @@ if (sessionStorage.getItem('token')) {
 			buttons +="<input type='button' value='Next &gt;&gt;' onclick='sort("+(current_page+1)+")' "+next_disable+">";
 			return buttons;
 		}
-		return sort;
+		window.sort = sort;
 	}
 
 	function logOut() {
 		sessionStorage.removeItem('token');
 		window.location.assign('index.html');
 	}
+	window.viewRequest = viewRequest;
+	window.logOut = logOut;
 }
 else{
 	alert("Please login");

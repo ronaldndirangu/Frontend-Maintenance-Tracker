@@ -1,7 +1,9 @@
-API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
+import endPoint from './fetch';
+
+let user_id;
 
 if (sessionStorage.getItem('token')) {
-	function getUser() {
+	window.onload = function getUser() {
 		user_id = localStorage.getItem('user_id')
 		document.getElementById('userid').innerHTML = '<em><b>User ID: </b>'+user_id+'</em>';
 
@@ -23,7 +25,6 @@ if (sessionStorage.getItem('token')) {
 		if (role === 'true') {
 			console.log(role);
 			document.getElementById('promote').style.display = 'none';
-			document.getElementById('delete').style.display = 'none';
 		}
 
 		document.getElementById('promote').addEventListener('click', promoteUser);
@@ -33,14 +34,8 @@ if (sessionStorage.getItem('token')) {
 	function promoteUser(e) {
 		e.preventDefault();
 
-		fetch(API_PREFIX+'/api/v2/users/'+user_id+'/promote', {
-			method: 'PUT',
-			headers: {
-				"Accept":"application/json",
-				"Content-type":"application/json",
-				"token":sessionStorage.getItem('token')
-			}
-		})
+		let token = window.sessionStorage.getItem('token');
+		endPoint.put('/users/'+user_id+'/promote', token)
 		.then((res) => res.json())
 		.then((data) => {
 			console.log(data);
@@ -52,14 +47,9 @@ if (sessionStorage.getItem('token')) {
 		e.preventDefault();
 
 		if (confirm("Are you sure you want to delete this user?")) {
-			fetch(API_PREFIX+'/api/v2/users/'+user_id, {
-				method: 'DELETE',
-				headers: {
-					"Accept":"application/json",
-					"Content-type":"application/json",
-					"token":sessionStorage.getItem('token')
-				}
-			})
+
+			let token = window.sessionStorage.getItem('token');
+			endPoint.delete('/users/'+user_id, token)
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data)
@@ -72,6 +62,7 @@ if (sessionStorage.getItem('token')) {
 		sessionStorage.removeItem('token');
 		window.location.assign('index.html');
 	}
+	window.logOut = logOut;
 }
 else{
 	alert("Please login");

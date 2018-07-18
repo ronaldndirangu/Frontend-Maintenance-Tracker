@@ -1,22 +1,23 @@
-API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
+import endPoint from './fetch';
+
+let sort;
+let searchUser;
+let page_rows;
+let is_header;
+let table;
 
 if (sessionStorage.getItem('token')){
-	function getUsers() {
-		fetch(API_PREFIX+'/api/v2/users', {
-			method: 'GET',
-			headers: {
-				"Accept":"application/json",
-				"Content-type":"application/json",
-				"token":sessionStorage.getItem('token')
-			}
-		})
+	window.onload = function getUsers() {
+		
+		let token = window.sessionStorage.getItem('token');
+		endPoint.get('/users', token)
 		.then((res) => res.json())
 		.then((data) => {
 			console.log(data);
 			data.forEach(function(user) {
-				let table = document.getElementById('users');
+				table = document.getElementById('users');
 				
-				i = 1
+				let i = 1
 				console.log(table);
 				// Create row for each user
 				if (typeof table !== "undefined" && table !== null) {
@@ -43,8 +44,8 @@ if (sessionStorage.getItem('token')){
 
 						username.className = "username"	
 				}
-				sort = paginate(table);
 			});
+			sort = paginate(table);
 		});
 	}
 
@@ -72,7 +73,7 @@ if (sessionStorage.getItem('token')){
 		console.log(table_rows);
 		let table_header = tb.rows[0].firstElementChild.tagName;
 		// Set rows to be displayed per page
-		page_rows = 2;
+		page_rows = 3;
 		// Check if table has header
 		is_header = (table_header === 'TH');
 		// Array to hold each row
@@ -126,32 +127,30 @@ if (sessionStorage.getItem('token')){
 			buttons +="<input type='button' value='Next &gt;&gt;' onclick='sort("+(current_page+1)+")' "+next_disable+">";
 			return buttons;
 		}
-		return sort;
+		window.sort = sort;
 	}
 
 	function getUser(event) {
-		fetch(API_PREFIX+'/api/v2/users/'+event.cells[0].innerHTML, {
-			method: 'GET',
-			headers:{
-				"Accept":"application/json",
-				"Content-type":"application/json",
-				"token":sessionStorage.getItem('token')
-				}
-	 		})
-			.then((res) => res.json())
-			.then((data) => {
-				localStorage.setItem('user_id', data[0].user_id);
-				localStorage.setItem('username', data[0].username);
-				localStorage.setItem('email', data[0].email);
-				localStorage.setItem('role', data[0].role);
-				location.assign('user-details.html')
-			})
-		} 
+
+		let token = window.sessionStorage.getItem('token');
+		endPoint.get('/users/'+event.cells[0].innerHTML, token)
+		.then((res) => res.json())
+		.then((data) => {
+			localStorage.setItem('user_id', data[0].user_id);
+			localStorage.setItem('username', data[0].username);
+			localStorage.setItem('email', data[0].email);
+			localStorage.setItem('role', data[0].role);
+			location.assign('user-details.html')
+		})
+	} 
 
 	function logOut() {
 		sessionStorage.removeItem('token');
 		window.location.assign('index.html');
 	}
+
+	window.getUser =getUser;
+	window.logOut = logOut;
 }
 else{
 	alert("Please login");

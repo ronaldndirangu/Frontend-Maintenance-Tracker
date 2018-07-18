@@ -1,0 +1,33 @@
+{
+  "name": "frontend-maintenance-tracker",
+  "version": "1.0.0",
+  "description": "Frontend implementation for the maintenance tracker API.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --watch",
+    "watch": "webpack --watch",
+    "build": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronaldndirangu/Frontend-Maintenance-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ronaldndirangu/Frontend-Maintenance-Tracker/issues"
+  },
+  "homepage": "https://github.com/ronaldndirangu/Frontend-Maintenance-Tracker#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^4.16.0",
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5"
+  }
+}

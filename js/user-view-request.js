@@ -1,23 +1,23 @@
-API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com'
+import endPoint from './fetch';
 
 if (sessionStorage.getItem('token')) {
-	function getRequest() {	
-		request_title = localStorage.getItem('request_title')
+	window.onload = function getRequest() {	
+		let request_title = localStorage.getItem('request_title')
 		document.getElementById('req-title').innerHTML = '<u> Title: '+request_title+ '</u>';
 
-		request_date = localStorage.getItem('request_date')
+		let request_date = localStorage.getItem('request_date')
 		document.getElementById('req-date').innerHTML = '<em><b>Created at: </b>'+request_date+'</em>';
 
-		request_location = localStorage.getItem('request_location')
+		let request_location = localStorage.getItem('request_location')
 		document.getElementById('req-location').innerHTML = '<em><b>Location: </b>'+request_location+'</em>';
 
-		request_priority = localStorage.getItem('request_priority')
+		let request_priority = localStorage.getItem('request_priority')
 		document.getElementById('req-priority').innerHTML = '<em><b>Priority: </b>'+request_priority+'</em>';
 
-		request_status = localStorage.getItem('request_status')
+		let request_status = localStorage.getItem('request_status')
 		document.getElementById('req-status').innerHTML = '<em><b>Status: </b>'+request_status+'</em>';
 		
-		request_description = localStorage.getItem('request_description')
+		let request_description = localStorage.getItem('request_description')
 		document.getElementById('req-description').innerHTML = '<em><b>Description: </b>'+request_description+'</em>';
 
 		document.getElementById('delete').addEventListener('click', deleteRequest);
@@ -26,16 +26,11 @@ if (sessionStorage.getItem('token')) {
 	function deleteRequest(e) {
 		e.preventDefault();
 		
-		req_id = localStorage.getItem('request_id')
+		let req_id = localStorage.getItem('request_id')
 		if (confirm("Are you sure you want to delete this request?")) {
-			fetch (API_PREFIX+'/api/v2/users/requests/'+req_id, {
-				method: 'DELETE',
-				headers: {
-					"Accept":"application/json",
-					"Content-type":"application/json",
-					"token":sessionStorage.getItem('token')
-				}
-			})
+
+			let token = window.sessionStorage.getItem('token');
+			endPoint.delete('/users/requests/'+req_id, token)
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data)
@@ -52,9 +47,15 @@ if (sessionStorage.getItem('token')) {
 		sessionStorage.removeItem('token');
 		window.location.assign('index.html');
 	}
+
+	window.deleteRequest = deleteRequest;
+	window.editRequest = editRequest;
+	window.logOut = logOut;
 }
 else{
 	alert("Please login");
 	window.location.assign('index.html');
 }
+
+
 

@@ -1,4 +1,5 @@
-API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com';
+import endPoint from './fetch';
+
 
 // Add event listeners
 document.getElementById('login').addEventListener('click', loginUser);
@@ -9,15 +10,9 @@ function loginUser(e) {
 
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-
-    fetch (API_PREFIX+'/api/v2/auth/login', {
-    	method: 'POST',
-    	headers: {
-    		"Accept":"application/json",
-    		"Content-type":"application/json"
-    	},
-    	body: JSON.stringify({username:username, password:password})
-    })
+    let data = {username:username, password:password}
+    
+    endPoint.post('/auth/login', data)
     .then((res) => res.json())
     .then((data) => {
         if (data.length > 1){
