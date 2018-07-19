@@ -1,18 +1,16 @@
-API_PREFIX = 'https://maintenance-tracker-project.herokuapp.com';
-
+import endPoint from './fetch';
 
 let sort;
+let searchTitle;
+let token;
+let page_rows;
+let is_header;
 
 if (sessionStorage.getItem('token')) {
-	function userRequests() {
-		fetch(API_PREFIX+'/api/v2/users/requests', {
-			method: 'GET',
-			headers: {
-				"Accept":"application/json",
-				"Content-type":"application/json",
-				"token":sessionStorage.getItem('token')
-			}
-		})
+	window.onload = function userRequests() {
+		
+		token = sessionStorage.getItem('token');
+		endPoint.get('/users/requests', token)
 		.then((res) => res.json())
 		.then((data) => {
 			console.log(data);
@@ -76,7 +74,7 @@ if (sessionStorage.getItem('token')) {
 		console.log(table_rows);
 		let table_header = tb.rows[0].firstElementChild.tagName;
 		// Set rows to be displayed per page
-		page_rows = 2;
+		page_rows = 3;
 		// Check if table has header
 		is_header = (table_header === 'TH');
 		// Array to hold each row
@@ -130,37 +128,33 @@ if (sessionStorage.getItem('token')) {
 			buttons +="<input type='button' value='Next &gt;&gt;' onclick='sort("+(current_page+1)+")' "+next_disable+">";
 			return buttons;
 		}
-		return sort;
+		window.sort = sort;
 	}
 
 	function viewRequest(event) {
 		console.log(event.cells);
 
-		fetch(API_PREFIX+'/api/v2/users/requests/'+event.cells[0].innerHTML, {
-			method: 'GET',
-			headers:{
-				"Accept":"application/json",
-				"Content-type":"application/json",
-				"token":sessionStorage.getItem('token')
-			}
-			})
-			.then((res) => res.json())
-			.then((data) => {
-				localStorage.setItem('request_id', data[0].request_id);
-				localStorage.setItem('request_title', data[0].request_title);
-				localStorage.setItem('request_date', data[0].request_date);
-				localStorage.setItem('request_location', data[0].request_location);
-				localStorage.setItem('request_priority', data[0].request_priority);
-				localStorage.setItem('request_status', data[0].request_status);
-				localStorage.setItem('request_description', data[0].request_description);
-				location.assign('user-view-request.html');
-			});
-		}
+		token = sessionStorage.getItem('token')
+		endPoint.get('/users/requests/'+event.cells[0].innerHTML, token)
+		.then((res) => res.json())
+		.then((data) => {
+			localStorage.setItem('request_id', data[0].request_id);
+			localStorage.setItem('request_title', data[0].request_title);
+			localStorage.setItem('request_date', data[0].request_date);
+			localStorage.setItem('request_location', data[0].request_location);
+			localStorage.setItem('request_priority', data[0].request_priority);
+			localStorage.setItem('request_status', data[0].request_status);
+			localStorage.setItem('request_description', data[0].request_description);
+			location.assign('user-view-request.html');
+		});
+	}
 
 	function logOut() {
 		sessionStorage.removeItem('token');
 		window.location.assign('index.html');
 	}
+	window.viewRequest = viewRequest;
+	window.logOut = logOut;
 }
 else{
 	alert("Please login");
