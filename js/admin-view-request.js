@@ -35,7 +35,7 @@ if (sessionStorage.getItem('token')) {
 		e.preventDefault();
 
 		let token = window.sessionStorage.getItem('token');
-		endPoint.put('/requests/'+request_id+'/approve', token)
+		endPoint.put('/requests/'+request_id+'/approve', null, token)
 		.then((res) => res.json())
 		.then((data) => {
 			console.log(data);
@@ -51,7 +51,7 @@ if (sessionStorage.getItem('token')) {
 		e.preventDefault();
 
 		let token = window.sessionStorage.getItem('token');
-		endPoint.put('/requests/'+request_id+'/disapprove', token)
+		endPoint.put('/requests/'+request_id+'/disapprove', null, token)
 		.then((res) => res.json())
 		.then((data) => {
 			console.log(data);
@@ -67,7 +67,7 @@ if (sessionStorage.getItem('token')) {
 		e.preventDefault();
 
 		let token = window.sessionStorage.getItem('token');
-		endPoint.put('/requests/'+request_id+'/resolve', token)
+		endPoint.put('/requests/'+request_id+'/resolve', null, token)
 		.then((res) => res.json())
 		.then((data) => {
 			console.log(data);
